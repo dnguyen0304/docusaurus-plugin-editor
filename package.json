@@ -5,7 +5,8 @@
     "main": "lib/index.js",
     "types": "src/docusaurus-plugin-editor.d.ts",
     "dependencies": {
-        "@docusaurus/plugin-content-docs": "2.0.0-rc.1"
+        "@docusaurus/plugin-content-docs": "2.0.0-rc.1",
+        "@docusaurus/utils": "^2.0.1"
     },
     "devDependencies": {
         "@docusaurus/types": "^2.0.0-rc.1",
