@@ -19,23 +19,6 @@ export default async function pluginEditor(
     const wrappedPlugin = await pluginContentDocs(context, options);
 
     return {
-        // TODO(dnguyen0304): Investigate how to specify a different plugin name
-        // There are hard-coded references to specific plugin names.
-        // See https://github.com/facebook/docusaurus/blob/7ab2bd32342496f3f7373bc67d03a0da0eeffa40/packages/docusaurus-plugin-content-docs/src/client/index.ts#L89
-        name: wrappedPlugin.name,
-
-        extendCli(cli) {
-            wrappedPlugin.extendCli!(cli);
-        },
-
-        getPathsToWatch() {
-            return wrappedPlugin.getPathsToWatch!();
-        },
-
-        async loadContent() {
-            return wrappedPlugin.loadContent!();
-        },
-
         async contentLoaded({ content, allContent, actions }) {
             if (content.loadedVersions.length > 1) {
                 throw new Error(
@@ -119,8 +102,27 @@ export default async function pluginEditor(
             });
         },
 
+        // Everything below is delegated unchanged to the wrapped component.
+
+        // TODO(dnguyen0304): Investigate how to specify a different plugin name
+        // There are hard-coded references to specific plugin names.
+        // See https://github.com/facebook/docusaurus/blob/7ab2bd32342496f3f7373bc67d03a0da0eeffa40/packages/docusaurus-plugin-content-docs/src/client/index.ts#L89
+        name: wrappedPlugin.name,
+
+        extendCli(cli) {
+            wrappedPlugin.extendCli!(cli);
+        },
+
+        getPathsToWatch() {
+            return wrappedPlugin.getPathsToWatch!();
+        },
+
+        async loadContent() {
+            return wrappedPlugin.loadContent!();
+        },
+
         // This is intentionally left not async to remain consistent with the
-        // wrapped code.
+        // wrapped component.
         getTranslationFiles({ content }) {
             return wrappedPlugin.getTranslationFiles!({ content });
         },
