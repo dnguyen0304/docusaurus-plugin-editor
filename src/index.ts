@@ -12,7 +12,10 @@ export default async function pluginEditor(
     const wrappedPlugin = await pluginContentDocs(context, options);
 
     return {
-        name: 'plugin-editor',
+        // TODO(dnguyen0304): Investigate how to specify a different plugin name
+        // There are hard-coded references to specific plugin names.
+        // https://github.com/facebook/docusaurus/blob/7ab2bd32342496f3f7373bc67d03a0da0eeffa40/packages/docusaurus-plugin-content-docs/src/client/index.ts#L89
+        name: wrappedPlugin.name,
 
         extendCli(cli) {
             wrappedPlugin.extendCli!(cli);
