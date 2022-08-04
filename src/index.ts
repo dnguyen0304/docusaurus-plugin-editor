@@ -27,9 +27,9 @@ export default async function pluginEditor(
             };
 
             const { siteDir } = context;
-            const { docItemComponent } = options;
+            const { docLayoutComponent } = options;
 
-            const pathToContentPath: { [path: string]: string } = {}
+            const pathToContent: { [path: string]: string } = {}
 
             for (let i = 0; i < content.loadedVersions[0].docs.length; i++) {
                 const doc = content.loadedVersions[0].docs[i];
@@ -43,49 +43,27 @@ export default async function pluginEditor(
                         encoding: 'utf8'
                     },
                 );
-                // Variance such as a prefix is necessary to avoid namespace
-                // collisions with the docusaurus-plugin-content-docs plugin,
-                // which uses the same hashing algorithm.
-                const contentPath = await actions.createData(
-                    `raw-${docuHash(doc.source)}.json`,
-                    JSON.stringify(fileContents),
-                );
                 // Remove the prefix and extension.
                 const processedPath =
                     doc.source
                         .slice(aliasedSitePathPrefix.length)
                         .replace(/\.[^/.]+$/, "");
-                pathToContentPath[processedPath] = contentPath
+                pathToContent[processedPath] = fileContents
             };
 
-            const addRouteWithModule = (config: RouteConfig) => {
-                const docsPath = content.loadedVersions[0].path;
-                const tagsPath = content.loadedVersions[0].tagsPath;
+            const pathToContentPath = await actions.createData(
+                `raw-${docuHash('path-to-content')}.json`,
+                JSON.stringify(pathToContent),
+            );
 
-                // Skip routes for components such as the DocTagDocListPage and
-                // DocTagsListPage.
-                if (config.path.startsWith(docsPath)
-                    && !config.path.startsWith(tagsPath)
-                    && config.routes !== undefined
-                    && config.routes.length !== 0
-                ) {
-                    const routesWithModule = config.routes.map(route => {
-                        // Skip routes for components such as the
-                        // DocCategoryGeneratedIndexPage.
-                        if (route.component !== docItemComponent) {
-                            return route;
-                        }
-                        return {
-                            ...route,
-                            modules: {
-                                ...route.modules,
-                                rawContent: pathToContentPath[route.path],
-                            },
-                        };
-                    });
+            const addRouteWithModule = (config: RouteConfig) => {
+                if (config.component === docLayoutComponent) {
                     actions.addRoute({
                         ...config,
-                        routes: routesWithModule,
+                        modules: {
+                            ...config.modules,
+                            rawContent: pathToContentPath,
+                        },
                     });
                 } else {
                     actions.addRoute(config);
