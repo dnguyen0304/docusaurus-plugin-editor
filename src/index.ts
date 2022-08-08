@@ -10,7 +10,7 @@ import type {
 import type { LoadContext, Plugin, RouteConfig } from '@docusaurus/types';
 
 // See https://github.com/facebook/docusaurus/blob/01ac2e0fcaccaf469992f93a0e8bf04e61cf850e/packages/docusaurus-utils/src/pathUtils.ts#L93
-const aliasedSitePathPrefix: string = '@site';
+const ALIASED_SITE_PATH_PREFIX: string = '@site';
 
 export default async function pluginEditor(
     context: LoadContext,
@@ -34,7 +34,7 @@ export default async function pluginEditor(
             for (let i = 0; i < content.loadedVersions[0].docs.length; i++) {
                 const doc = content.loadedVersions[0].docs[i];
                 const resolvedPath = doc.source.replace(
-                    aliasedSitePathPrefix,
+                    ALIASED_SITE_PATH_PREFIX,
                     siteDir,
                 );
                 const fileContents = await fs.readFile(
@@ -46,7 +46,7 @@ export default async function pluginEditor(
                 // Remove the prefix and extension.
                 const processedPath =
                     doc.source
-                        .slice(aliasedSitePathPrefix.length)
+                        .slice(ALIASED_SITE_PATH_PREFIX.length)
                         .replace(/\.[^/.]+$/, "");
                 pathToContent[processedPath] = fileContents
             };
