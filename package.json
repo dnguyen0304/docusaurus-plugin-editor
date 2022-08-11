@@ -1,5 +1,5 @@
 {
-    "name": "docusaurus-plugin-editor",
+    "name": "@docupotamus/docusaurus-plugin-editor",
     "version": "0.1.0",
     "description": "Docusaurus live editor plugin.",
     "main": "lib/index.js",
