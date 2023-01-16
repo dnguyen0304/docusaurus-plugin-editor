@@ -23,13 +23,13 @@ export default async function pluginEditor(
             if (content.loadedVersions.length > 1) {
                 throw new Error(
                     'Loading multiple versions is not yet implemented.'
-                )
-            };
+                );
+            }
 
             const { siteDir } = context;
             const { docLayoutComponent } = options;
 
-            const pathToContent: { [path: string]: string } = {}
+            const pathToContent: { [path: string]: string } = {};
 
             for (let i = 0; i < content.loadedVersions[0].docs.length; i++) {
                 const doc = content.loadedVersions[0].docs[i];
@@ -40,7 +40,7 @@ export default async function pluginEditor(
                 const fileContents = await fs.readFile(
                     resolvedPath,
                     {
-                        encoding: 'utf8'
+                        encoding: 'utf8',
                     },
                 );
                 // Remove the prefix and extension.
@@ -48,8 +48,8 @@ export default async function pluginEditor(
                     doc.source
                         .slice(ALIASED_SITE_PATH_PREFIX.length)
                         .replace(/\.[^/.]+$/, "");
-                pathToContent[processedPath] = fileContents
-            };
+                pathToContent[processedPath] = fileContents;
+            }
 
             const pathToContentPath = await actions.createData(
                 `raw-${docuHash('path-to-content')}.json`,
@@ -67,7 +67,7 @@ export default async function pluginEditor(
                     });
                 } else {
                     actions.addRoute(config);
-                };
+                }
             };
 
             await wrappedPlugin.contentLoaded!({
