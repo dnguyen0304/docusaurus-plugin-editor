@@ -15,6 +15,10 @@
         "sourceMap": true,
         /* Type Checking */
         "allowUnreachableCode": false,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "strict": true,
         // Set the same strict mode options that are required for packages
         // published in the @types namespace.
         "noImplicitAny": true,
