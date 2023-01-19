@@ -16,6 +16,7 @@
         /* Type Checking */
         "allowUnreachableCode": false,
         "noImplicitReturns": true,
+        "noUncheckedIndexedAccess": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "strict": true,
@@ -27,6 +28,7 @@
         /* Modules */
         "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
         "baseUrl": ".",
         /* Plugins */
         "plugins": [
