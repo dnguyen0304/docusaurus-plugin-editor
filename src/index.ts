@@ -1,13 +1,11 @@
-import fs from 'fs/promises';
-
-import pluginContentDocs from '@docusaurus/plugin-content-docs';
-import { docuHash } from '@docusaurus/utils';
-
 import type {
     LoadedContent,
     PluginOptions
 } from '@docusaurus/plugin-content-docs';
+import pluginContentDocs from '@docusaurus/plugin-content-docs';
 import type { LoadContext, Plugin, RouteConfig } from '@docusaurus/types';
+import { docuHash } from '@docusaurus/utils';
+import fs from 'fs/promises';
 
 // See https://github.com/facebook/docusaurus/blob/01ac2e0fcaccaf469992f93a0e8bf04e61cf850e/packages/docusaurus-utils/src/pathUtils.ts#L93
 const ALIASED_SITE_PATH_PREFIX: string = '@site';
