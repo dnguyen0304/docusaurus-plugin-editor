@@ -32,6 +32,8 @@
     "keywords": [
         "react",
         "docusaurus",
+        "docusaurus-plugin",
+        "docusaurus-theme",
         "static site generator",
         "documentation",
         "open source",
